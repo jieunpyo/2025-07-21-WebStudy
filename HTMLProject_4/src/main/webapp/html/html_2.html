@@ -1,0 +1,93 @@
+<!-- 
+	 1. 각 태그에 공통으로 가지고 있는 속성
+	 	1) id : 태그의 고유 ID => 중복이 없는 속성 
+	 			=> CSS / JavaScript에서 태그 선택 
+	 			<a href="" id="a">
+	 			<a href="">
+	 			
+	 			#id명 {
+	 			   디자인 
+	 			}
+	 			
+	 			$('#a').click(function(){})
+	 	2) class : 중복이 있는 속성 
+	 			.class명 => 태그명.class명 
+	 			select("div.list-wrap")
+	 	3) style : 각 태그에만 적용 
+	 			   인라인 스타일 : 태그에만 적용 
+	 			   <tag style="width:100px">
+	 			   내부 스타일 : 한파일에서만 
+	 			   <style>
+	 			   </style>
+	 			   외부 스타일 : 공통 적용 => 파일 
+	 			    .css
+	 	4) title : 풍선 도움말 
+	 	   ------- 이미지 
+	  1. 텍스트 관련 
+	  	 <a> => href , target 
+	  	 <p> => align : center / left / right
+	  	 <hr> => size , color , width
+	  2. 이미지 / 미디어
+	  	 <img>  src / alt / width / height 
+	  	 			  | 풍선도움말 
+	  	 			  | onError
+	  	 <iframe> : src / sidth / height
+	  	 <embed> : src / width / height
+	  3. form 관련
+	  	 <form> : action : 전송할 파일명
+	  	 		  method : GET/POST
+	  	 		  enctype : multipart/form-data
+	  	 		  => 파일업로드 
+	  	 <input> : type,name,value,placeholder,
+	  	 		   required , readonly , disabled
+	  	 		   checked , max , min
+	  	 <textarea> : name , rows ,cols , placeholder,
+	  	 			  readonly , disabled
+	  	 <select> : name, multiple , size ,disabled
+	  	 <option> : value , selected , disabled
+	  	 
+	  	 <button> : type , disabled , name, value
+	  ----------------------------------------------
+	  4. <table> 
+	  		: border / bordercolor 
+	  		  cellpadding / cellspacing 
+	  	 <tr> - height 
+	  	 <th> - colspan rowspan width height
+	  	 <td> - colspan rowspan width height
+	  	 		align : 가로 => left / right / center
+	  	 					   | default
+	  	 		valign: 세로 => top / middle / bottom
+	  	 							 | default
+	  	 		IE => center / top
+	  	 		C  => left / middle
+	-------------------------------------------------
+	  	 			  
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <table border=1 bordercolor=black width=500
+    cellpadding=30 cellspacing=0
+  >
+    <tr>
+      <th>이름</th>
+      <th>주소</th>
+      <th>전화</th>
+    </tr>
+    <tr>
+      <td>홍길동</td>
+      <td>서울</td>
+      <td>1111-1111</td>
+    </tr>
+    <tr>
+      <td>홍길동</td>
+      <td>서울</td>
+      <td>1111-1111</td>
+    </tr>
+  </table>
+</body>
+</html>
