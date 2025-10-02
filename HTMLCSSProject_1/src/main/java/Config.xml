@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+   Connection : getConnection/disConnection
+ -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!-- 
+	  (properties?, 
+	    settings?, 
+	    typeAliases?, 
+	    typeHandlers?, 
+	    objectFactory?, 
+	    objectWrapperFactory?, 
+	    reflectorFactory?, 
+	    plugins?, 
+	    environments?, 
+	    databaseIdProvider?, 
+	    mappers?) 
+	    1) 기호
+	  	   ? => 사용할수도 있고 사용하지 않아도 된다
+	  	   * => 0번 이상 사용이 가능
+	  	   + => 1번 이상 사용이 가능 ****
+	  	   | => 둘중 1개 선택 
+	  	   def => 반드시 한번 사용 
+  		
+  2) 순서 => , 
+     XML의 단점 : 문법이 어렵다 
+   -->
+   <!-- VO등록 -->
+   <typeAliases>
+     <!-- 
+       (typeAlias*, package*)
+      -->
+      <typeAlias type="com.sist.vo.MusicVO" alias="MusicVO"/>
+   </typeAliases>
+   <!-- 환경설정 : Connection -->
+   <environments default="development">
+     <environment id="development">
+       <!-- (transactionManager,dataSource) -->
+       <transactionManager type="JDBC"/>
+       <dataSource type="POOLED">
+         <!-- 
+         	POOLED  : Coonection  Pool => maxActive:8 maxIdle:8
+         	UNPLLOED : 일반 
+          -->
+          <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+          <property name="username" value="hr"/>
+          <property name="password" value="happy"/>
+          <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+       </dataSource>
+     </environment>
+   </environments>
+   <mappers>
+     <mapper resource="com/sist/dao/music-mapper.xml"/>
+   </mappers>
+</configuration>
