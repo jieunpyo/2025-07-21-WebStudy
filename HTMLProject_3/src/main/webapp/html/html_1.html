@@ -1,0 +1,172 @@
+<!-- 
+	 1) 글자 관련 태그 
+	 	h1~h6 (h1,h3) => 제목
+	 	br / p => 줄바꿈 
+	 	출력된 형태를 그대로 => pre (내용 보기)
+	 	strong,b : 강조체 
+	 	sup : 위첨자
+	 2) 목록 태그 
+	 	ul / ol / dl / table
+	 	 |	  |	  |		 |
+	 	 				tr
+	 	 				 |
+	 	 			  --------
+	 	 			  |		 |
+	 	 			 th		 td
+	 	 	 li	  dt/dd
+	 	li(list item) => 데이터 출력 
+	 3) 멀티미디어 
+	 	img   : 이미지 출력
+	 	embed : 동영상 출력 
+	 	iframe : 다른 파일을 첨부 
+	 	---------------------- 속성 : src
+	 4) 링크 : 다른 파일로 이동 
+	 	a => href 
+	 5) 입력창 : input / textarea / select
+	 6) 화면 분할 : div / span
+	 7) 템플릿 : header / section / footer / nav / article
+	 8) label / fieldset 
+	 
+	 입력창 : 글쓰기 , 검색 , 로그인 , 회원가입 ....
+	 		장바구니 => 수량 
+	 1. 입력창 : input 
+	 	=> 속성 
+	 	   ---- type , name , size
+	 	   			   |	   |
+	 	   			   			입력 크기 
+	 	   			   자바에서 값을 받는다 
+	 	   		| 종류
+	 	   = type
+	 	   	  1) text => <input type=text> 한줄 문자열 
+	 	   	  			 ID입력 , 검색창 , 주소 ...
+	 	   	  2) file => <input type=file> 
+	 	   	  			 업로드 
+	 	   	  3) 버튼 종류 
+	 	   	  	 button / reset / submit / image 
+	 	   	  	 radio / checkbox 
+	 	   	  	 <input type=button value="로그인">
+	 	   	  	 ---------------------------------
+	 	   	  	 | 기능이 없다 => 자바스크립트를 이용한다 
+	 	   	  	 <input type=reset value="취소">
+	 	   	  	 <input type=submit value="전송">
+	 	   	  	 -------------------------------
+	 	   	  	   | <input type=image> : submit
+	 	   	  	   | <button></button>
+	 	   	  	   	=> Group으로 묶어서 사용 
+	 	   	  	 ** <input type=radio name=sex checked>남자
+	 	   	  	 	 => checked
+	 	   	  	 	<input type=radio name=sex>여자
+	 	   	  	 <input type=checkbox name=hobby>낚시
+	 	   	  	 <input type=checkbox name=hobby>등산
+	 	   	  	 <input type=checkbox name=hobby>게임
+	 	   	  	 
+	 	   	  	 => id , class : CSS/JavaScript
+	 	   	  	 => name : Java => 입력값을 받는 경우 구분자
+	 	   	  	 
+	 	   	  	 이름:<input type=text name=name>
+	 	   	  	   => getParameter("name")
+	 	   	  	 주소:<input type=text name=addr>
+	 	   	  	   => getParameter("addr")
+	 	   	  	 전화:<input type=text name=phone>
+	 	   	  	   => getParameter("phone")
+	 	   	  4) 날짜 => 달력
+	 	   	  	 date => <input type=date size="20">
+	 	   	  5) 비밀번호 입력 
+	 	   	  	 password => <input type=password size=10>
+	 	   	  6) Spinner 
+	 	   	  	 number  => <input type=number max=100 min=1>
+	 	   	  7) 슬라이더
+	 	   	  	 range => <input type=range max=100 min=1>
+	 	   	  8) HIDDEN
+	 	   	  	 hidden => 데이터를 감춰서 전송 
+	 	   	  	 		  <input type=hidden>
+	 	   ----------------------------------------------
+	 	    textare : 여러줄 입력
+	 	    ------------------- <textarea></textarea>
+	 	    콤보박스 : 한개 선택 
+	 	    		<select>
+	 	    		   |
+	 	    		<option>값
+	 	   	  	   
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+  <table border=1 bordercolor=black width=350>
+    <tr>
+     <td>한줄문자</td>
+     <td><input type=text size=20></td>
+    </tr>
+    <tr>
+     <td>비밀번호 입력</td>
+     <td><input type=password size=20></td>
+    </tr>
+    <tr>
+     <td>파일 선택창</td>
+     <td><input type=file size=20></td>
+    </tr>
+    <tr>
+     <td>달력</td>
+     <td><input type=date size=20></td>
+    </tr>
+    <tr>
+     <td>일반 버튼</td>
+     <td><input type=button value="로그인"></td>
+    </tr>
+    <tr>
+     <td>전송 버튼</td>
+     <td><input type=submit value="전송"></td>
+    </tr>
+    <tr>
+     <td>초기화 버튼</td>
+     <td><input type=reset value="취소"></td>
+    </tr>
+    <tr>
+     <td>이미지 버튼</td>
+     <td><input type=image src=""></td>
+    </tr>
+    <tr>
+     <td>라디오 버튼</td>
+     <td>
+       <input type=radio name=sex>남자
+       <input type=radio name=sex>여자
+     </td>
+    </tr>
+    <td>체크박스</td>
+     <td>
+       <input type=checkbox name=hobby>낚시
+       <input type=checkbox name=hobby>등산
+       <input type=checkbox name=hobby>여행
+     </td>
+    </tr>
+    <tr>
+     <td>Spinner버튼</td>
+     <td><input type=number max="100" min="1"></td>
+    </tr>
+    <tr>
+     <td>슬라이더</td>
+     <td><input type="range" max="100" min="1"></td>
+    </tr>
+    <tr>
+     <td>콤보박스</td>
+     <td>
+       <select>
+         <option>이름</option>
+         <option>제목</option>
+         <option>내용</option>
+       </select>
+     </td>
+    </tr>
+    <tr>
+     <td>멀티라인</td>
+     <td>
+       <textarea rows="3" cols="35"></textarea>
+     </td>
+    </tr>
+  </table>
+</body>
+</html>
