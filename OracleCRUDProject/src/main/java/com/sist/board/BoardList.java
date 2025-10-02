@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+
 import com.sist.dao.*;
 import com.sist.vo.*;
 import java.util.*;
@@ -25,8 +27,8 @@ public class BoardList extends HttpServlet {
 		// 사용자가 보내준 값을 받는다 => request
 		// BoardList?page=2
 		/*
-		 * 	 BoardList => null
-		 * 	 BoardList?page= ""
+		 *   BoardList => null
+		 *   BoardList?page= ""
 		 */
 		String page=request.getParameter("page");
 		if(page==null)
@@ -35,59 +37,74 @@ public class BoardList extends HttpServlet {
 		List<BoardDTO> list=dao.boardListData(curpage);
 		// 총페이지 
 		int totalpage=dao.boardTotalPage();
-		// 전송
-		out.write("<html>");
-		out.write("<head>");
-		out.write("<link rel=stylesheet href=\"css/table.css\">");
-		out.write("<style type=text/css>");
-		out.write("h1 {text-align:center}");
-		out.write("table{margin:0px auto}");
-		out.write("</style>");
-		out.write("</head>");
-		out.write("<body>");
+		String today=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		// 전송 
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<link rel=stylesheet href=\"css/table.css\">");
+		out.println("<style type=text/css>");
+		out.println("h1 {text-align:center}");
+		out.println("table{margin:0px auto}");
+		out.println("</style>");
+		out.println("</head>");
+		out.println("<body>");
 		
-		out.write("<h1>자유게시판</h1>");
-		out.write("<table id=table_content width=600>");
-		out.write("<tr>");
-		out.write("<td>");
-		out.write("<a href=\"BoardInsert\">새글</a>");
-		out.write("</td>");
-		out.write("</tr>");
-		out.write("</table>");
-		out.write("<table id=table_content width=600>");
-		out.write("<tr>");
-		out.write("<th width=10%>번호</th>");
-		out.write("<th width=45%>제목</th>");
-		out.write("<th width=15%>이름</th>");
-		out.write("<th width=20%>작성일</th>");
-		out.write("<th width=10%>조회수</th>");
-		out.write("</tr>");
+		out.println("<h1>자유게시판</h1>");
+		out.println("<table id=table_content width=600>");
+		out.println("<tr>");
+		out.println("<td>");
+		out.println("<a href=\"BoardInsert\">새글</a>");
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("</table>");
+		out.println("<table id=table_content width=600>");
+		out.println("<tr>");
+		out.println("<th width=10%>번호</th>");
+		out.println("<th width=45%>제목</th>");
+		out.println("<th width=15%>이름</th>");
+		out.println("<th width=20%>작성일</th>");
+		out.println("<th width=10%>조회수</th>");
+		out.println("</tr>");
 		for(BoardDTO vo:list)
 		{
-			out.write("<tr class=dataTr>");
-			out.write("<td width=10% align=center>"+vo.getNo()+"</td>");
-			out.write("<td width=45%>"+vo.getSubject()+"</td>");
-			out.write("<td width=15% align=center>"+vo.getName()+"</td>");
-			out.write("<td width=20% align=center>"+vo.getDbday()+"</td>");
-			out.write("<td width=10% align=center>"+vo.getHit()+"</td>");
-			out.write("</tr>");
+			out.println("<tr class=dataTr>");
+			out.println("<td width=10% align=center>"+vo.getNo()+"</td>");
+			out.println("<td width=45%><a href=BoardDetail?no="+vo.getNo()+">"+vo.getSubject()+"</a>");
+			if(today.equals(vo.getDbday()))
+			{
+				out.println("<sup><img src=images/new.gif></sup>");
+			}
+			out.println("</td>");
+			out.println("<td width=15% align=center>"+vo.getName()+"</td>");
+			out.println("<td width=20% align=center>"+vo.getDbday()+"</td>");
+			out.println("<td width=10% align=center>"+vo.getHit()+"</td>");
+			out.println("</tr>");
 		}
 		
-		out.write("</table>");
+		out.println("</table>");
 		
 		// 페이지
-		out.write("<table id=table_content width=600>");
-		out.write("<tr>");
-		out.write("<td align=right>");
-		out.write("<a href=\"BoardList?page="+(curpage>1?curpage-1:curpage)+"\">이전</a>");
-		out.write(curpage+" page / "+totalpage+" pages&nbsp;");
-		out.write("<a href=\"BoardList?page="+(curpage<totalpage?curpage+1:curpage)+"\">다음</a>");
-		out.write("</td>");
-		out.write("</tr>");
-		out.write("</table>");
+		out.println("<table id=table_content width=600>");
+		out.println("<tr>");
+		out.println("<td align=left>");
+		out.println("<select name=fs>");
+		out.println("<option value=name>이름</option>");
+		out.println("<option value=subject>제목</option>");
+		out.println("<option value=content>내용</option>");
+		out.println("</select>");
+		out.println("<input type=text name=ss size=15>");
+		out.println("<input type=submit value=검색>");
+		out.println("</td>");
+		out.println("<td align=right>");
+		out.println("<a href=\"BoardList?page="+(curpage>1?curpage-1:curpage)+"\">이전</a>&nbsp;");
+		out.println(curpage+" page / "+totalpage+" pages&nbsp;");
+		out.println("<a href=\"BoardList?page="+(curpage<totalpage?curpage+1:curpage)+"\">다음</a>");
+		out.println("</td>");
+		out.println("</tr>");
+		out.println("</table>");
 		
-		out.write("</body>");
-		out.write("</html>");
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 }

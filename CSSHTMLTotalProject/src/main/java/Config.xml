@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+   <!-- 
+   		XML 파일
+   		1) 모든 운영체제의 호환성 
+   		2) 화면 출력이 아니라 설정파일 용도 
+   		3) Framework주로 사용 : MyBatis / Spring Framework 
+   		   / Spring Boot 
+   		4) 지정된 XML은 없다 : 사용자 정의로만 되어 있다
+   		   사용 파일
+   		   = MyBatis : config(Connection)
+   		   			   mapper(SQL문장 저장 = PreparedStatement
+   		   			   		  ResultSet)
+   		   = Spring : pom.xml , application-content.xml
+   		   			  ======= 프로젝트에 필요한 라이브러리 등록
+   		   			  spring-security.xml
+   		   = React : xml코딩 = JSX => JavaScript+XML
+   		   = Ajax : Async JavaScript+XML
+   		   = Tomcat : web.xml , server.xml
+   		5) XML 문법
+   		   = 최상위 태그가 1개 필요하다 (트리) 
+   		   	 <!DOCTYPE 태그(최상위태그)>
+   		   = 태그(속성)의 대소문자 구분 
+   		   	 지정된 태그/속성만 사용 = 각 업체에서 제공 
+   		   = 여는 태그 / 닫는 태그 동일 
+   		   	 <br> (X) , <br/>
+   		   = 순서가 명확 
+   		   	 <a><b><c> = <b><a><c> (오류)
+   		   = 속성값은 반드시 ""를 사용한다 
+   		   = 정의된 태그는 dtd파일로 제공 
+   		   = ? / * / + / | / default 
+   		   	 ? : 사용할 수 있고 , 사용하지 않을 수 있다 
+   		   	 * : 0번 이상 
+   		   	 + : 1번 이상 
+   		   	 | : 태그 둘중 한개 선택 
+   		   	 default : 반드시 한번만 사용 
+    -->
+    <!-- 
+    	XML은 문서형 데이터베이스다 
+    	= 무겁다 (파일 크기가 크다) = JSON(자바스크립트 = 자바)
+    							Vue / React = JSON
+    	***properties?, : 중요 정보 = 파일 (.properties)
+    	***settings?, : cache = 임시 저장 
+    	***typeAliases?,  : VO등록 
+    	***typeHandlers?, : 데이터형 변경 
+    	objectFactory?,
+    	objectWrapperFactory?, 
+ 		reflectorFactory?,
+ 		plugins?,
+ 		***environments?, : 환경 설정 = getConnection/disConnection
+ 		databaseIdProvider?,
+ 		***mappers? : SQL문장 => Mapper 파일 등록 
+     -->
+     <!-- VO 등록 -->
+     <typeAliases>
+       <!-- 
+       	  (typeAlias*, package*)
+        -->
+        <typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
+     </typeAliases>
+     <!-- 환경 설정 -->
+     <environments default="development">
+       <!-- 
+       	  (environment)+
+        -->
+        <environment id="development">
+          <!-- 
+          	 (transactionManager,dataSource)
+           -->
+           <transactionManager type="JDBC"/>
+           <!-- COMMIT / ROLLBACK -->
+           <dataSource type="POOLED">
+           	 <!-- 
+           	 	UNPOOLED : 열기 / 닫기 = 연결시에 들어가는 시간이 오래 걸린다
+           	 	POOLED : 미리 연결시킨 상태에서 Connection 
+           	 			 Connection Pool
+           	 			 default : 8개
+           	  -->
+           	  <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+           	  <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+           	  <property name="username" value="hr"/>
+           	  <property name="password" value="happy"/>
+           </dataSource>
+        </environment>
+     </environments>
+     <!-- Mapper등록 -->
+     <mappers>
+       <mapper resource="com/sist/mapper/food-mapper.xml"/>
+     </mappers>
+</configuration>
+
+
+

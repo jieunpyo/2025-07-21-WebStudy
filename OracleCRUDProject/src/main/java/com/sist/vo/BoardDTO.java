@@ -1,5 +1,5 @@
 package com.sist.vo;
-// Data Transfor object => VO => Bean ...
+// Data Transfor Object => VO => Bean ...
 import java.util.*;
 
 import lombok.Data;

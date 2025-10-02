@@ -1,0 +1,267 @@
+<!-- 
+   1. HTML (MarkUP Language)
+      태그 + 속성 => 지정된 태그 / 속성만 사용 (표준화 , w3c) 
+      
+      태그 
+       1) 텍스트 관련 
+          <font> : CSS로 설정
+          <u> : underline => text-decoration
+          <em> : font-weight
+          ***<strong> : 강조체 => 굵은 글씨체 
+          ***<b> : bold 
+          ***<h1>~<h6> : 제목 => <h1> , <h3>
+          ***<p> : 단락 
+          ***<br> : 줄바꿈 
+          ***<pre> : 편집된 내용 그대로 => 내용/줄거리/ 댓글 
+          ***<hr> : 수평선 => 구분 
+          ***<sup> : 위첨자 => new (새글, 새상품)
+          # 브라우저는 (HTML , XML)만 실행이 가능
+       2) 멀티미디어 
+          ***<img> : 이미지 출력 
+          <embed> : 동영상 출력 
+          <iframe> : 특정위치에 다른 HTML을 추가 
+           = <jsp:include page="">
+           = <%@ include file="" %>
+          => 공통 속성 : src / width / height / title
+      3) 화면 이동 
+         *** <a> : 화면 이동 
+         => 속성 : href="이동할 URL"
+         => 화면 이동시 => 데이터를 전송할 수 있다 
+            ?변수=값&변수=값...
+            페이지 / 단순한 검색어 / 상세보기 ...
+            => URL뒤에 데이터를 전송하는 방식 : GET
+            RestFul : GET / POST 
+            형상관리 : GIT 
+     4) 목록 
+        <ul> 
+         |
+        <li>
+        
+        <table> 
+          |
+         <tr>
+          |
+       ---------
+       |       |
+      <th>    <td> 
+              ==== width / height / align / valign
+                                    |       |
+                                           top / middle / bottom
+                                  left / center / right
+    5) 입력 관련 
+       <input> 
+           ***type="text" : 한줄문자열 / id , 주소 , 이름 ...
+           **tyep="password" : 비밀번호 입력 
+           **type="radio"
+           **type="checkbox"
+           *type="number" : Spinner
+           **type="file" : 업로드 
+           type="date" : 달력 
+           **type="hidden" :데이터를 감추는 경우
+           ***type="button" : 일반 버튼 
+           ***type="submit" : 전송 버튼 
+           *type="image" : 전송버튼 
+           <button> : 전송버튼 
+       <select> : 콤보박스 
+          |
+       <option>:값 설정
+       ***<textarea> : 여러줄 입력 => rows / cols
+       ***<form> : 여러개의 입력창을 모아서 
+                입력된 모든 데이터를 한번에 전송 
+                => method / action 
+                   ------   ------- 데이터 받는 파일을 지정 
+                   | 전송방식 : GET / POST
+     6) 분할 태그 
+        ***div : 세로분할
+        span : 가로분할 => 특정 태그에 CSS를 적용 
+     --------------------------------------
+      block : 한줄 전체 차지 => 자동 줄바꿈 
+       => System.out.println() 
+       <p> < br> <div> <ul> <table> <h1>~<h6> 
+       <hr> 
+     --------------------------------------
+      inline : 일부 차지 
+       => System.out.print()
+       <b> <input> <textarea> <select> <font>
+       <span> <img> <a> 
+     --------------------------------------
+     
+     CSS : 디자인 
+     1) 태그를 선택 : 선택자 
+        => CSS / JavaScript / Jsoup
+        1. 기본 선택자 
+           * : 모든 태그에 적용 
+           * {
+                글꼴 , margin / padding / font-family
+           }
+           아이디 선택자 : 중복이 없는 태그 
+           #아이디명 {
+              속성 : 값
+           }
+           클래스 선택자 : 중복이 있는 태그 
+           .클래스명 {
+              속성 : 값
+           }
+           태그 선택자 : 태그명 
+           태그명 {
+              속성 : 값 => 공통적용 부분 
+           }
+         ------------------------ 구분자를 가지고 있는 상태 
+         -------------- 구분자 없는 상태 (id,class)
+         2. 속성 선택자 
+            태그명[속성=값] => 값을 동일할 때 
+            태그명[속성*=값] => 값이 포함하고 있는 경우 
+            태그명[속성^=값] => 시작문자 => <a>  http / https
+            태그명[속성$=값] => 끝문자  => <img> jpg,png,gif
+         3. 후손 / 자손 / 동위
+            => HTML은 리스트형태의 저장이 아니다 
+               ---- 트리 형태로 저장 (DOM) => Document Object Model
+               <div>
+                 <h1></h1>
+                 <p></p>
+                 <span>
+                   <h1></h1>
+                 </span>
+               </div>
+               ---------------------- String / StringBuffer
+                    div
+                     |
+                 ---------------
+                 |     |  |    |
+                h1    p   p span  ==> 자손 div > h1 , div > p
+                             |
+                             h1    ==> 후손 div span h1 
+                h1 + p  : h1태그 바로 옆에 있는 p태그 
+                h1 ~ p  : h1태그 옆에 있는 p태그 전체
+        4. 가상 선택자 
+           :hover : mouseover 
+           :checked : checkbox 
+           :first-child : 같은 태그가 여러개 => 첫번째 
+           :last-child : 마지막에 있는 태그 
+            <ul> , <table> 
+           :nth-child(수열) : odd / even 
+             => 2n => 0 2 4 6...
+             => 2n+1 => 1 3 5 ...
+                 n => 0부터 값을 대입 
+           ::before / ::after 
+                       | 신상품 => new 
+              |
+            => 답변 
+     2) CSS의 속성
+         1. 박스 속성 
+            margin: 태그와 태그 사이의 여백 (상하 / 좌우) 
+              margin-top
+              margin-right
+              margin-bottom
+              margin-left 
+              종합 속성 : margin : top right bottom left
+                                       |            |
+                                       --------------
+                                  |          |
+                                  ------------
+                        => 시계 방향 
+              => margin-top , margin-left
+              => margin : 0px auto => 가운데 정렬 
+              => 약식 
+                 margin : 10px 
+                               10px 10px 10px 
+                 margin : 10px 20px 
+                                     10px 20px 
+                 margin : 10px 20px 30px 
+                                          20px 
+            padding : 태그안에 글자 여백 / 이미지 여백 
+                 padding-top 
+                 padding-right
+                 padding-bottom 
+                 padding-left 
+            => padding : top right bottom left 
+            => 적용 margin하고 동일 
+            border : 테두리 
+                border-width : 두께 
+                border-style : 선종류
+                               solid (일반선)
+                               dotted (점선)   ...
+                               dashed (dash선) ----
+                border-color : 색상 
+                               지정된 색상 : red / green..
+                               16진법 : #FF00FF
+                                 (HTML 색상표 참조)
+                               rgb(255,255,0) 
+                                 (그림판)
+                종합 속성 : border : 두께 선종류 색상
+                          border :1px solid red
+         2. 가시 속성 
+              display:none|block|inline|inline-block
+                      => display:table / table-row / table-column
+              overflow:hidden / auto / scroll 
+              z-index: 값 => 레이어 개념 
+                       값이 높을 것을 가장 위에 배치 
+         3. 배경 속성 
+              background-image:url('파일명')
+              background-color:색상 
+              background-size : 크기 => cover , width.height
+              background:색상 , 이미지 , 크기 
+              ***  이미지가 작은 경우 : 반복 
+                   => no-repeat 
+                   => 크기 : px , % , em(문자)
+         4. 텍스트 속성 
+            font-family : 글꼴 
+                          여러개 설정 / 구글 폰트 
+            font-size: px ,em(배수) 
+                       => 14px 
+                       => 2em => 14*2 => 28px 
+                       => 200%
+            font-weight: bold => 900 / lighter
+            color : 글자 색상 
+            text-align :정렬 (left / center / right )
+            text-decoration : 선 
+                              none|underline|overline
+            white-space : 줄바꿈
+            line-height : 자간 (줄 간격) 
+            text-overflow : 글자가 범위를 벗어나면 자동 ...
+        ----------------------------------------------
+         5. 위치 속성 
+            static : HTML코드 순서로 배치 
+            absolute : 절대좌표 => 브라우저 좌표를 이용 
+            relative : 옆에 있는 태그를 기준점으로 
+            fixed :  고정 좌표 
+            float : left / right 
+             => 해제 : clear 
+         6. 반응형 
+            @media screen and (max-width:960)
+            {
+               image:60%
+            }
+         7. 라이브러리 사용 : bootstrap 
+         
+     3) 적용 
+        => 파일 한개에만 적용 : 내부 CSS
+           <head>
+             <style>
+               선택자 {
+                 속성:값;
+                 ..
+                 ..
+               }
+             </style>
+           </head> 
+        => 태그 한개에만 적용 : 인라인 CSS
+           <태그 style="속성:값;...">
+        => 공통으로 적용 : 외부 CSS => 파일로 제작 (.css)
+           => 재사용이 가능 
+           => 라이브러리 : bootstrap / tailwnd 
+           선택자 {
+              속성:값..
+           }
+           
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

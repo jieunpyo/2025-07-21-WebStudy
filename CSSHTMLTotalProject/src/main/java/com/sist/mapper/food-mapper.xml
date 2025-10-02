@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.food-mapper">
+<!-- 
+	 <sql id=""> : 재사용 = 중복 SQL문장이 있는 경우에 저장 
+	 		 <include refid="">
+	 <insert> : 데이터 추가 
+	 			=> parameterType="" (자바 => 매개변수)
+	 			=> ~VO
+	 <update> : 데이터 추가
+	 			=> parameterType="" (자바 => 매개변수)
+	 			=> ~VO
+	 <delete> : 데이터 삭제
+	 			=> parameterType="" (자바 => 매개변수)
+	 			=> int
+	 <select> : 데이터 검색 
+	 			=> resultType : 결과값 
+	 			   => int / String / VO / hashmap
+	 			=> parameterType : ? 
+	 			   => int / string / VO / hashmap
+	 			   					 ============
+	 			   					 ?가 많이 있는 경우 
+	 			   WHERE num BETWEEN ? AND ?
+	 			   WHERE id=? AND pwd=?
+	 <resultMap>
+	 
+	 *** ?는 사용하지 않는다 
+	 *** #{id} #{pwd}
+	 		   ====== getPwd()
+	 	 ===== getId()
+	 
+	 INSERT INTO member VALUES(?,?,?,?,?)
+	 INSERT INTO member VALUES(#{id},#{pwd},#{name},
+	 			  #{sex},#{address})
+	 			  
+	 WEHRE num BETWEEN #{start} AND #{end}
+	 
+	 map.put("start",1) get("start")
+	 map.put("end",10)
+ -->
+  <sql id="where-fno">
+   WHERE fno=#{fno}
+  </sql>
+  <select id="foodListData" resultType="FoodVO"
+  		  parameterType="int">
+    <!-- 
+       id = 중복이 되면 안된다 (Map : key)
+       map.put("foodListData","SELECT~")
+       
+       resultType: 결과값을 받아서 저장 
+       rs.next()
+       vo.setName(...)
+       ==
+       SELECT ~
+       WHERE 컬럼=?
+       parameterType="int" => setInt()
+       parameterType="String" => setString()
+       ** parameterType은 한번만 사용이 가능
+       	  parameterType="FoodVO" 
+       	  parameterType="hashmap" 
+       	  => start end
+       ? => #{} (int start)
+     -->
+     SELECT fno,poster,name,address,type
+     FROM menupan_food
+     ORDER BY fno ASC
+     OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+  </select>
+  <!-- 
+  	   resultType : 리턴형 (List<FoodVO> FoodVO)
+  	   					  ====================
+  	   					  	| FoodVO
+  	   					  메소드 : selectList
+  	   					  		 selectOne
+  	   parameterType
+   -->
+  <select id="foodTotalPage" resultType="int">
+    SELECT CEIL(COUNT(*)/12.0) FROM menupan_food
+  </select>
+  <update id="hitIncrement" parameterType="int" >
+    UPDATE menupan_food SET
+    hit=hit+1
+    <include refid="where-fno"/>
+  </update>
+  <select id="foodDetailData" resultType="FoodVO"
+  	 parameterType="int">
+  	 SELECT * FROM menupan_food
+  	 <include refid="where-fno"/>
+  </select>
+</mapper>
