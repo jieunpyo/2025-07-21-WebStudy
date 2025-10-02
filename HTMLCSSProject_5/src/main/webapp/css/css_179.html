@@ -1,0 +1,145 @@
+<!-- 
+	 CSS 속성
+	 -------
+	 1) 박스 속성
+	 	margin 
+	 	  = margin-top
+	 	  = margin-right
+	 	  = margin-bottom
+	 	  = margin-left
+	 	  = margin:top right bottom left
+	 	  = margin: 0px auto => 가운데 정렬 
+	 	  = 태그와 태그 사이의 간격 
+	 	  = margin-left / margin-top 
+	 	  	좌우 여백		   위아래 여백 
+	 	  				   => 구분 
+	 	  	=> 대댓글 / 여러개 버튼 
+	 	padding
+	 	  = padding-top
+	 	  = padding-right
+	 	  = padding-bottom
+	 	  = padding-left
+	 	  = padding: top right bottom left
+	 	  = 태그안에 글자 / 이미지 여백 
+	 	border 
+	 	  = border-with 
+	 	  = border-style : solid / dotted / dashed 
+	 	  = border-color 
+	 	  	------------ 시스템 색상 : red / yellow ..
+	 	  							#FF00FF 
+	 	  							rgb(255,255,22)
+	 	  							rgba(255,255,255,1.0~0.0)
+	 	  							투명 모드
+	 	  = border-left / border-right
+	 	    border-top  / border-bottom 
+	 	  = 테두리 설정 
+	 	width / height  => 크기 결정 
+	 2) 가시 속성 
+	 	display 
+	 	  = HTML에서 사용하는 태그 
+	 	  	------------------
+	 	  	1. block : 브라우저의 한줄 전체를 차지 
+	 	  	   <h1>~<h6> , <br> , <p> ,
+	 	  	   목록 (<ul>,<ol>,<dl>,<table>)
+	 	  	   분할 (<div>)
+	 	  	2. inline : 자동으로 해당 크기만큼만 처리 (가로) 
+	 	  	   <img> , <a> , 글자(<b>,<strong>,<font>,<sup>..)
+	 	  	   분할 , 특정 부분에만 CSS처리 : <span>
+	 	  	   <input> <select> <textarea>
+	 	= 속성 변경
+	 	  display:block
+	 	  display:inline
+	 	  display:inline-block => width/height를 결정 
+	 	  		  메뉴 제작 (li=>크기 결정) 
+	 	  display:none : 태그를 감추는 경우 사용 
+	 	= 형식
+	 	  <table> : display:table 
+	 	  <tr> : display:table-row
+	 	  <th> : display:table-column
+	 	  <td> : display-cell
+	 	  <caption> : display:table-caption
+	 	= 기타
+	 	  float : left / right => 레이아웃 
+	 	  overflow : 범위를 벗어나는 경우 
+	 	  -------- hidden / scroll
+	 	  | overflow-x / overflow-y
+	 3) 배경 속성
+	 	background-color : 배경 색상
+	 	background-image : 이미지 => url('경로명/URL')
+	 	background-size : 이미지 크기
+	 					  cover / contain / width height
+	 	background:color지정 / 이미지지정 / size지정 
+	 4) 글자 속성 : font- , text-
+	 	  font-family : 글꼴 
+	 	  				= 시스템 내장 
+	 	  				= 구글폰트 => <link> @import()
+	 	  font-size : 글자 크기 
+	 	  			  % , px , em(배수)
+	 	  font-weight : 강조 (bold)
+	 	  color : 글자 색상 
+	 	  text-align : 정렬 => left / center / right
+	 	  vertical-align : 정렬 => top / middle / bottom 
+	 	  white-space : 자동 줄바꿈 
+	 	  	 ** HTML의 특성 => 자동으로 크기가 늘어난다 
+	 	  word-space : 글자 간격
+	 	  line-height : 자간 (줄간격)
+	 5) 위치 속성
+	 	  : 화면 배치
+	 	  float : 출력 위치 설정 (left/right)
+	 	  z-index: 레이아웃 
+	 	  clear : float 해제 
+	 	  position 
+	 	  	= absolute : 절대좌표 (브라우저 기준)
+	 	  	= relative : 상대 태그 기준 
+	 	  	= fixed : 고정 좌표 
+	 	  		=> 메뉴 , 퀵메뉴 , 이미지 
+	 	  	= static : HTML 코딩 순서 배치(기본)
+	 	  	
+	 	  	---------------------
+	 	  		   top
+	 	  		---------------
+	 	  		 -left  -right
+	 	  		---------------
+	 	  		    bottom
+	 	  	---------------------
+	 	  	
+	 6) 유동 속성 : float / z-index
+	 
+	 *** CSS 암기(X) => 값 설정 
+	 *** 소스 (자바 / HTML / 오라클 / JavaScript)
+	 	 => 순서 
+	 
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+/* flex / grid */
+img {
+  width: 150px;
+  height: 200px;
+  display: block;
+  margin-top: 10px;
+}
+div {
+  width: 130px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  display: inline-block; /* width/height를 설정*/
+}
+</style>
+</head>
+<body>
+  <h1>display: 가시성</h1>
+  <div>Hello CSS1</div><!-- block -->
+  <div>Hello CSS2</div>
+  <div>Hello CSS3</div>
+  <p>
+  <img src="mm1.jpg">
+  <img src="mm2.jpg">
+  <img src="mm3.jpg">
+</body>
+</html>
