@@ -1,0 +1,55 @@
+<!-- 
+	색상 / URL 단위 
+	색상 단위 
+	 => color : 글자 색상 
+	 	background-color : 바탕 색상 
+	 	
+	 	background-color: 등록된 색상 
+	 					  white / orange ...
+	 	background-color: rgb(255,255,255) 
+	 	background-color: #9D8ACC => HTML 색상표 
+	 	background-color:reba(255,255,255,0.1)
+	 						-- 알파 (투명) => 0.0~1.0
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+p:nth-child(1) {
+	background-color: red;
+	color:white;
+}
+p:nth-child(2) {
+	font-size: 1.5em;
+	background-color: rgb(0,0,255);
+}
+p:nth-child(3) {
+	font-size: 2em;
+	background-color: #00FF00;
+}
+p:nth-child(4) {
+	font-size: 150%;
+	background-color: rgba(0,0,0,0.1);
+}
+div {
+  width: 500px;
+  height: 500px;
+  background-color: #FF00FF;
+}
+h1 {
+  color:white;
+}
+</style>
+</head>
+<body>
+  <p>대한항공-아시아나, 합병 뒤에도</p>
+  <p>마일리지 10년 유지</p>
+  <p>수정해 다시 마련한 방안인데</p>
+  <p>마일리지 공제 기준도 기존 아시아나의 공제 기준을</p>
+  <div>
+    <h1>대한항공으로 전환한다면, 두 회사 마일리지를 합산해 등급이</h1>
+  </div>
+</body>
+</html>
