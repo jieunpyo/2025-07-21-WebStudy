@@ -52,6 +52,7 @@
        </dataSource>
      </environment>
    </environments>
+   <!-- Mapper등록 -->
    <mappers>
      <mapper resource="com/sist/dao/music-mapper.xml"/>
    </mappers>

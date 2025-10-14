@@ -24,7 +24,7 @@ public class MainServlet extends HttpServlet {
 		PrintWriter out=response.getWriter();
 		// out 메모리 => 저장 => 브라우저에서 읽기 한다 
 		// TCP => 소켓 => 데이터 통로를 이용해서 보낸다 
-		// 1. 사용자가 보내준 데이터 읽기 
+		// 1. 사용자가 보내준 데이터 읽기  
 		/*
 		 * 	 String getParameter() : 단일값
 		 * 	 String[] getParameterValues() : 다중값
