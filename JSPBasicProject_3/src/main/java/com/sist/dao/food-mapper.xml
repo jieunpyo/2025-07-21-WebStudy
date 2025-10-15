@@ -14,7 +14,8 @@
    SELECT /*+ INDEX_ASC(menupan_food menuf_fno_pk)*/fno,poster,name,address,type
    FROM menupan_food
    WHERE type LIKE '%'||#{type}||'%'
-   OFFSET #{start} ROWS FETCH NEXT 20 ROWS ONLY;
+   OFFSET #{start} ROWS FETCH NEXT 20 ROWS ONLY
+   <!-- map.get("start") -->
  </select>
  <select id="foodTotalPage" resultType="int" 
   parameterType="string">
@@ -26,4 +27,10 @@
    SELECT * FROM menupan_food
    WHERE fno&lt;100
  </select> -->
+ <select id="foodDetailData" resultType="FoodVO"
+  parameterType="int"
+  >
+   SELECT * FROM menupan_food
+   WHERE fno=#{fno}
+  </select>
 </mapper>
