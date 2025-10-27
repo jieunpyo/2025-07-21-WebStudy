@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.net.*;
-@WebServlet("*.do")
+
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private List<String> cList=new ArrayList<String>();
