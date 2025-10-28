@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.sist.commons.*;
 import com.sist.vo.*;
+
 public class MusicDAO {
    private static SqlSessionFactory ssf;
    static
@@ -64,4 +65,88 @@ public class MusicDAO {
 	   session.close();
 	   return vo;
    }
+   /*
+    * 	<!-- 음식 종류별  -->
+	  <select id="foodTypeListData" resultType="FoodVO"
+	   parameterType="hashmap"
+	  >
+	    SELECT fno,name,poster,type
+	    FROM menupan_food
+	    WHERE type LIKE '%'||#{type}}}'%'
+	    ORDER BY fno ASC
+	    OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	    <!-- 
+	       MySQL : LIMIT start,12
+	       oracle : Inline View
+	     -->
+	  </select>
+	  <select id="foodTypeTotalPage" resultType="int"
+	   parameterType="string"
+	  >
+	  	SELECT CEIL(COUNT(*)/12.0)
+	  	FROM menupan_food
+	  	WHERE type LIKE '%'||#{type}||'%'
+	  	<!-- 
+	  		 MySQL : WHERE type LIKE CONCAT('%',#{type},'%')
+	  		 NVL = IFNULL , TO_CHAR = DATE_FORMAT
+	  	 -->
+	  </select>
+    */
+   public static List<MusicVO> musicTypeListData(Map map)
+   {
+	   List<MusicVO> list=null;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+		   list=session.selectList("musicTypeListData",map);
+		   session.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   return list;
+   }
+   public static int musicTypeTotalPage(int cno)
+   {
+	   int total=0;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+		   total=session.selectOne("musicTypeTotalPage",cno);
+		   session.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   return total;
+   }
+   /*
+    * 	<select id="foodFindListData" resultType="FoodVO"
+	    parameterType="hashmap"
+	  >
+	    SELECT fno,name,subject,address
+	    FROM menupan_food
+	    WHERE ${column} LIKE '%'||#{ss}||'%'
+	    <!-- 
+	   	  WHERE 'address' LIKE ~
+	   	  $ = table , column 
+	     -->
+	  </select>
+    */
+   public static List<MusicVO> musicFindListData(Map map)
+   {
+	   List<MusicVO> list=null;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+		   list=session.selectList("musicFindListData",map);
+		   session.close();
+	   }catch(Exception ex)
+	   {
+		  System.out.println("musicFindListData"+ex.getMessage());
+	   }
+	   
+	   return list;
+   }
+
 }

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js""></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <!-- jquery는 충돌시에 오류 발생  -->
 <script type="text/javascript">
 /*

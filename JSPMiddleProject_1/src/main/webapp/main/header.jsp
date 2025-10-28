@@ -31,7 +31,7 @@
           <li><a href="../music/find.do">뮤직 검색</a></li>
         </ul>
       </li>
-      <li><a href="../replyboard/list.do">묻고 답하기</a></li>
+      <li><a href="../board/list.do">묻고 답하기</a></li>
     </ul>
   </div>
 </nav>

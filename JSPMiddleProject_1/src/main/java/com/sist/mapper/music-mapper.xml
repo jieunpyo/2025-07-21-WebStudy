@@ -19,4 +19,49 @@
 		   SELECT * FROM genie_music
 		   WHERE no=#{no}
 		 </select>
+		   <!-- 음악 종류별  -->
+	  <select id="musicTypeListData" resultType="MusicVO"
+	   parameterType="hashmap"
+	  >
+	    SELECT no,title,poster,cno
+	    FROM genie_music
+	    WHERE cno LIKE '%'||#{cno}||'%'
+	    ORDER BY no ASC
+	    OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	    <!-- 
+	       MySQL : LIMIT start,12
+	       oracle : Inline View
+	     -->
+	  </select>
+  <!-- 
+  		name
+  		subject
+  		content
+  		
+  		name+subject
+  		name+content
+  		name+subject+content
+  		subject+content
+   -->
+  <select id="musicTypeTotalPage" resultType="int"
+   parameterType="int"
+  >
+  	SELECT CEIL(COUNT(*)/12.0)
+  	FROM genie_music
+  	WHERE cno LIKE '%'||#{cno}||'%'
+  	
+  	<!-- 
+  		 MySQL : WHERE type LIKE CONCAT('%',#{type},'%')
+  		 NVL = IFNULL , TO_CHAR = DATE_FORMAT
+  	 -->
+  	 
+  </select>
+    <select id="musicFindListData" resultType="MusicVO"
+    parameterType="hashmap"
+  >
+    SELECT no,title,singer,poster,album
+    FROM genie_music
+    WHERE ${column} LIKE '%'||#{ss}||'%'
+
+  </select>
 </mapper>

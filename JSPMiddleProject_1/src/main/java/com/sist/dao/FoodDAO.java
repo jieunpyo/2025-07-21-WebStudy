@@ -75,4 +75,87 @@ public class FoodDAO {
 	   session.close();
 	   return vo;
    }
+   /*
+    * 	<!-- 음식 종류별  -->
+	  <select id="foodTypeListData" resultType="FoodVO"
+	   parameterType="hashmap"
+	  >
+	    SELECT fno,name,poster,type
+	    FROM menupan_food
+	    WHERE type LIKE '%'||#{type}}}'%'
+	    ORDER BY fno ASC
+	    OFFSET #{start} ROWS FETCH NEXT 12 ROWS ONLY
+	    <!-- 
+	       MySQL : LIMIT start,12
+	       oracle : Inline View
+	     -->
+	  </select>
+	  <select id="foodTypeTotalPage" resultType="int"
+	   parameterType="string"
+	  >
+	  	SELECT CEIL(COUNT(*)/12.0)
+	  	FROM menupan_food
+	  	WHERE type LIKE '%'||#{type}||'%'
+	  	<!-- 
+	  		 MySQL : WHERE type LIKE CONCAT('%',#{type},'%')
+	  		 NVL = IFNULL , TO_CHAR = DATE_FORMAT
+	  	 -->
+	  </select>
+    */
+   public static List<FoodVO> foodTypeListData(Map map)
+   {
+	   List<FoodVO> list=null;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+		   list=session.selectList("foodTypeListData",map);
+		   session.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   return list;
+   }
+   public static int foodTypeTotalPage(String type)
+   {
+	   int total=0;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+		   total=session.selectOne("foodTypeTotalPage",type);
+		   session.close();
+	   }catch(Exception ex)
+	   {
+		   ex.printStackTrace();
+	   }
+	   return total;
+   }
+   /*
+    * 	<select id="foodFindListData" resultType="FoodVO"
+	    parameterType="hashmap"
+	  >
+	    SELECT fno,name,subject,address
+	    FROM menupan_food
+	    WHERE ${column} LIKE '%'||#{ss}||'%'
+	    <!-- 
+	   	  WHERE 'address' LIKE ~
+	   	  $ = table , column 
+	     -->
+	  </select>
+    */
+   public static List<FoodVO> foodFindListData(Map map)
+   {
+	   List<FoodVO> list=null;
+	   try
+	   {
+		   SqlSession session=ssf.openSession();
+		   list=session.selectList("foodFindListData",map);
+		   session.close();
+	   }catch(Exception ex)
+	   {
+		  System.out.println("foodFindListData"+ex.getMessage());
+	   }
+	   
+	   return list;
+   }
 }

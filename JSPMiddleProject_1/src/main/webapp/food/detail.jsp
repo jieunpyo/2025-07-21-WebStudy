@@ -91,7 +91,7 @@ $(function(){
          <a href="#" class="btn btn-xs btn-danger">좋아요</a>
          <a href="#" class="btn btn-xs btn-warning">찜하기</a>
          <a href="#" class="btn btn-xs btn-info">예약</a>
-         <a href="../main/main.do?page=${curpage }" class="btn btn-xs btn-success">목록</a>
+         <a href="javascript:history.back()" class="btn btn-xs btn-success">목록</a>
         </td>
       </tr>
      </table>
