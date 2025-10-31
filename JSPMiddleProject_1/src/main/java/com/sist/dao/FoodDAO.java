@@ -158,4 +158,22 @@ public class FoodDAO {
 	   
 	   return list;
    }
+   /*
+    * 	<select id="foodAjaxListData" resultType="FoodVO"
+		   parameterType="string"
+		  >
+		    SELECT fno,name,poster,type,rownum
+		    FROM menupan_food
+		    WHERE type LIKE '%'||#{type}||'%' AND rownum&lt;=12
+		    ORDER BY fno ASC
+		  </select>
+    */
+   public static List<FoodVO> foodAjaxListData(String type)
+   {
+	   SqlSession session=ssf.openSession();
+	   List<FoodVO> list=
+			   session.selectList("foodAjaxListData",type);
+	   session.close();
+	   return list;
+   }
 }

@@ -4,43 +4,158 @@
   <select id="boardListData" resultType="ReplyBoardVO"
    parameterType="int"
   >
-  	<!-- 
-  			group_tab : 간격조절 
-  			  AAAAA
-  			  	=> BBBBB 1
-  			  	  => CCCCC 2
-  			group_id : 답변을 모아둔것 
-  			  AAAAA 1
-  			  	=> BBBBB 1
-  			  	  => CCCCCC 1
-  			  	=> DDDD 1
-  			  EEEE 2
-  			   => KKKK 2
-  			group_step
-  			  AAAAA 0
-  			  	=> BBBBB 1
-  			  	  => CCCCCC 2
-  			  	=> DDDD 3
-  			  	
-  			AAAAAA			  1	 0
-  			  
-  			  => BBBBBB		  1	 2
-  			  
-  			  	=> CCCCCCC	  1	 2
-  			  => DDDDDD		  1	 3
-  			  
-  			  	
-  	 -->
+    <!-- 
+           group_tab : 간격조절 
+             AAAAA 0
+               => BBBBB 1
+                 => CCCCC 2
+           group_id : 답변을 모아둔것 
+             AAAAA 1
+               => BBBBB 1
+                => CCCCCC 1
+               => DDDD 1
+             EEEE 2
+              => KKKK 2
+           group_step
+              AAAAA 0
+               => BBBBB 1
+                => CCCCCC 2
+               => DDDD 3
+               
+           AAAAAA           1  0
+             
+             => BBBBBB      1  1
+             
+               => CCCCCCC   1  2
+             => DDDDDD      1  3
+              
+               
+     -->
     SELECT no,subject,name,
-    	   TO_CHAR(regdate,'YYYY-MM-DD') as dbday,
-    	   hit,group_tab
+           TO_CHAR(regdate,'YYYY-MM-DD') as dbday,
+           hit,group_tab
     FROM replyboard
     ORDER BY group_id DESC,group_step ASC
-    OFFSET #{start} ROWS FETCH NEXT 10 ROWS ONLY 
-    
+    OFFSET #{start} ROWS FETCH NEXT 10 ROWS ONLY
   </select>
   <select id="boardTotalPage" resultType="int">
    SELECT COUNT(*)
    FROM replyboard
   </select>
+  <!-- 
+       데이터 저장 
+   -->
+   <insert id="boardInsert" parameterType="ReplyBoardVO">
+     INSERT INTO replyboard(no,name,subject,content,pwd,group_id)
+     VALUES(rb_no_seq.nextval,#{name},
+           #{subject},#{content},#{pwd},
+           (SELECT NVL(MAX(group_id)+1,1) FROM replyboard))
+   </insert>
+   <!-- 
+   	   상세보기 
+    -->
+    <update id="boardHitIncrement" parameterType="int">
+      UPDATE replyboard SET
+      hit=hit+1 
+      WHERE no=#{no}
+    </update>
+    <select id="boardDetailData" resultType="ReplyBoardVO"
+     parameterType="int"
+    >
+      SELECT no,name,subject,content,hit,
+      		 TO_CHAR(regdate,'YYYY-MM-DD HH24:MI:SS') as dbday
+      FROM replyboard
+      WHERE no=#{no}
+    </select>
+   <!-- 수정하기 -->
+   <select id="boardUpdateData" resultType="ReplyBoardVO"
+     parameterType="int"
+   >
+     SELECT no,name,subject,content
+     FROM replyboard
+     WHERE no=#{no}
+   </select>
+   <select id="boardGetPassword" resultType="string"
+    parameterType="int"
+   >
+     SELECT pwd FROM replyBoard
+     WHERE no=#{no}
+   </select>
+   <update id="boardUpdate" parameterType="ReplyBoardVO">
+     UPDATE replyboard SET
+     name=#{name},subject=#{subject},content=#{content}
+     WHERE no=#{no}
+   </update>
+   <!-- 답변하기 -->
+   <!-- 1. 답변 대상의 group_id group_step group_tab -->
+   <!-- 
+   						gi	 gs	  gt	 
+   		AAAAAA			 1	  0	   0
+   		  => BBBBBB		 1	  1	   1
+   		  	 => CCCCC	 1	  2	   2
+    -->
+    <select id="boardParentInfoData" resultType="ReplyBoardVO"
+     
+    parameterType="int">
+     SELECT group_id,group_step,group_tab
+     FROM replyboard
+     WHERE no=#{no}
+    </select>
+    <!-- 
+    	 UPDATE 설정  gi DESC , gs ASC
+    	 				gi	 gs	  gt
+    	 AAAAAA			1	  0	   0
+    	   =>DDDDD		1	  1	   1
+    	   =>BBBBB		1	  2	   1
+    	   
+    	   	 =>CCCCC	1	  3	   2
+    	   
+     -->
+     <update id="boardGroupStepIncrement"
+      parameterType="ReplyBoardVO"
+     >
+       UPDATE replyboard SET
+       group_step=group_step+1
+       WHERE group_id=#{group_id} AND group_step>#{group_step}
+     </update>
+    <!-- 
+     	 INSERT
+     -->
+     <insert id="boardReplyInsert" parameterType="ReplyBoardVO">
+      INSERT INTO replyboard(no,name,subject,content,
+      		pwd,group_id,group_step,group_tab,root,depth)
+      VALUES(rb_no_seq.nextval,#{name},
+      #{subject},#{content},#{pwd},
+      #{group_id},#{group_step},#{group_tab},#{root},0)
+     </insert>
+    <!-- 
+    	 UPDATE
+     -->
+     <update id="boardDepthIncrement" parameterType="int">
+       UPDATE replyboard SET
+       depth=depth+1
+       WHERE no=#{no}
+     </update>
+   <!-- 삭제하기 -->
+   <select id="boardDeleteInfoData" resultType="ReplyBoardVO"
+    parameterType="int"
+   >
+    SELECT pwd,depth,root
+    FROM replyboard
+    WHERE no=#{no}
+   </select>
+   <update id="boardSCData" parameterType="int">
+    UPDATE replyboard SET 
+    subject='관리자가 삭제한 게시물입니다',content='관리자가 삭제한 게시물입니다'
+    WHERE no=#{no}
+   </update>
+   <delete id="boardDelete" parameterType="int">
+     DELETE FROM replyboard
+     WHERE no=#{no}
+   </delete>
+   <update id="boardDepthDecrment" parameterType="int">
+     UPDATE replyboard SET
+     depth=depth-1
+     WHERE no=#{no}
+   </update>
 </mapper>

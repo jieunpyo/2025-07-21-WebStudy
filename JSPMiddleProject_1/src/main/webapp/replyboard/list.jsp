@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -47,7 +48,16 @@
 	           </c:forEach>
 	           <img src="../replyboard/re_icon.png">
 	         </c:if>
-	         ${vo.subject }
+	         <c:if test="${msg!=vo.subject }">
+	         <a href="../board/detail.do?no=${vo.no }">${vo.subject }</a>
+	         </c:if>
+	         <c:if test="${msg==vo.subject }">
+	         <span style="color:gray">${vo.subject }</span>
+	         </c:if>
+	         <%--
+	         	  ?no=10 = request.setAttribute("no",10)
+	         	  => getParameter("no") => 10
+	          --%>
 	         &nbsp;
 	         <c:if test="${vo.dbday==today }">
 	          <sup><img src="../replyboard/new.gif"></sup>
@@ -71,7 +81,11 @@
          <input type=button value="검색"
            class="btn-sm btn-danger">
         </td>
-        <td class="text-right"></td>
+        <td class="text-right">
+         <a href="#" class="btn btn-sm btn-success">이전</a>
+           ${curpage } page / ${totalpage } pages
+         <a href="#" class="btn btn-sm btn-success">다음</a>
+        </td>
       </tr>
     </table>
     </div>

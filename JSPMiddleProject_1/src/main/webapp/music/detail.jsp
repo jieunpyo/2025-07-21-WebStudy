@@ -12,8 +12,7 @@
   width:960px;
 }
 </style>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-</script>
+
 </head>
 <body>
    <div class="container">
@@ -62,6 +61,6 @@
     </div>
 	 
     </div>
-   </div>
+
 </body>
 </html>

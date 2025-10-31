@@ -13,7 +13,7 @@ var IMP = window.IMP;
 IMP.init("imp65483433"); 
 function requestPay() {
     IMP.request_pay({
-        pg: "html5_inicis",
+        pg: "ksnet",
         pay_method: "card",
         merchant_uid: "ORD20180131-0000011",   // 주문번호
         name: '홍길동',

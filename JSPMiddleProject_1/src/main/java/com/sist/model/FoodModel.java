@@ -3,7 +3,12 @@ package com.sist.model;
 import com.sist.controller.Controller;
 import com.sist.controller.RequestMapping;
 
+import java.io.PrintWriter;
 import java.util.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.sist.dao.*;
 import com.sist.vo.*;
 
@@ -97,5 +102,59 @@ public class FoodModel {
 	  request.setAttribute("list", list);
 	  request.setAttribute("main_jsp","../food/find.jsp");
 	  return "../main/main.jsp";
+  }
+  @RequestMapping("food/food_list.do")
+  public void food_ajax_list(HttpServletRequest request,
+		  HttpServletResponse response)
+  {
+	  String type=request.getParameter("type");
+	  if(type==null)
+		  type="한식";
+	  List<FoodVO> list=
+			  FoodDAO.foodAjaxListData(type);
+	  // List => Array
+	  JSONArray arr=new JSONArray();
+	  // VO = Object
+	  for(FoodVO vo:list)
+	  {
+		  JSONObject obj=new JSONObject();
+		  obj.put("fno", vo.getFno());
+		  obj.put("poster", vo.getPoster());
+		  obj.put("name", vo.getName());
+		  arr.add(obj);
+	  }
+	  try
+	  {
+		  response.setContentType("text/plain;charset=UTF-8");
+		  PrintWriter out=response.getWriter();
+		  out.write(arr.toJSONString());
+	  }catch(Exception ex) {}
+  }
+  @RequestMapping(value="food/food_vue.do")
+  public void food_vue_list(HttpServletRequest request,
+		  HttpServletResponse response)
+  {
+	  String type=request.getParameter("type");
+	  if(type==null)
+		  type="한식";
+	  List<FoodVO> list=
+			  FoodDAO.foodAjaxListData(type);
+	  // List => Array
+	  JSONArray arr=new JSONArray();
+	  // VO = Object
+	  for(FoodVO vo:list)
+	  {
+		  JSONObject obj=new JSONObject();
+		  obj.put("fno", vo.getFno());
+		  obj.put("poster", vo.getPoster());
+		  obj.put("name", vo.getName());
+		  arr.add(obj);
+	  }
+	  try
+	  {
+		  response.setContentType("text/plain;charset=UTF-8");
+		  PrintWriter out=response.getWriter();
+		  out.write(arr.toJSONString());
+	  }catch(Exception ex) {}
   }
 }

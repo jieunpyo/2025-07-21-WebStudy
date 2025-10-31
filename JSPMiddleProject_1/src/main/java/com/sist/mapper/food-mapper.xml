@@ -98,4 +98,14 @@
    	  $ = table , column 
      -->
   </select>
+  
+  <!-- Ajax -->
+  <select id="foodAjaxListData" resultType="FoodVO"
+   parameterType="string"
+  >
+    SELECT fno,name,poster,type,rownum
+    FROM menupan_food
+    WHERE type LIKE '%'||#{type}||'%' AND rownum&lt;=12
+    ORDER BY fno ASC
+  </select>
 </mapper>
