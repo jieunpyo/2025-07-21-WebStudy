@@ -17,7 +17,7 @@ public class CreateSqlSessionFactory {
 	  }catch(Exception ex)
 	  {
 		  ex.printStackTrace();
-	  }
+	  } 
   }
   public static SqlSessionFactory getSsf() {
 	return ssf;
